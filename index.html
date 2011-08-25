@@ -33,6 +33,10 @@
         some_text.text = "FPS: " + Math.round(1000 / clock.averageDt);
       }
       
+      var viewport = new ph.Viewport();
+      viewport.setOffset(-100,-100)
+      js_pic.addViewport(viewport);
+      
       clock.start();
       
       

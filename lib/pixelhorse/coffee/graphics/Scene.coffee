@@ -1,6 +1,8 @@
 class ph.Scene
   
   constructor: (parent) ->
+    @drawables = []
+    
     parent = $(parent)
     @width = parent.width()
     @height = parent.height()
@@ -11,7 +13,7 @@ class ph.Scene
     parent.append(@element)
     
     @gfxContext = @element.getContext("2d")
-
+    
   addDrawable: (drawable) ->
     drawable.setParent(null)
     @drawables.push(drawable)
