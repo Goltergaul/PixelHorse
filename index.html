@@ -21,15 +21,36 @@
       scene.addDrawable(some_text);
       some_text.setPosition(10,100);
       
-      js_pic.setPosition(100,120);
       js_pic2.setPosition(20,20);
-      js_pic3.setPosition(-30,-10);
+      
+      ph.AssetManager.addAsset(js_pic3, "monkey");
+      delete js_pic3;
+
+      try {
+        js_pic3.setPosition(-30,-10);
+      }
+      catch(e) {
+        console.log("js_pic3 is undefined, let's get it from the asset Manager:", e.message);
+      }
+      finally {
+        js_pic3 = ph.AssetManager.getAsset("monkey");
+        js_pic3.setPosition(-30,-10);
+      }
 
       var clock = new ph.ClockGenerator(update, scene.draw);
+      var keyboard = new ph.Keyboard();
 
       function update(dt) {
         var x = js_pic.x;
-        js_pic.setPosition(js_pic.x+1*dt/10,0);
+        if(keyboard.pressed["68"])
+          js_pic.setPosition(js_pic.x+1*dt/10,0);
+          
+        var offset =  viewport.getOffsets();
+        if(keyboard.pressed["39"]) {
+          offset[0] += 1*dt/10;
+          viewport.setOffset(offset[0], offset[1]);  
+        }
+          
         some_text.text = "FPS: " + Math.round(1000 / clock.averageDt);
       }
       
