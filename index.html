@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sample App</title>
+    <script type="text/javascript" src='lib/jquery.js'></script>
+    <script type="text/javascript" src='lib/pixelhorse/pixelhorse.js'></script>
+  </head>
+  <body>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var scene = new ph.Scene($("#scene"));
+      
+      js_pic = new ph.BitmapCanvas("/app/js.png");
+      js_pic2 = new ph.BitmapCanvas("/app/js2.png");
+      js_pic3 = new ph.BitmapCanvas("/app/js3.gif");
+      some_text = new ph.TextCanvas("Hello World");
+      scene.addDrawable(js_pic),
+      js_pic.addDrawable(js_pic2);
+      js_pic.addDrawable(js_pic3);
+      scene.addDrawable(some_text);
+      some_text.setPosition(10,100);
+      
+      js_pic.setPosition(100,120);
+      js_pic2.setPosition(20,20);
+      js_pic3.setPosition(-30,-10);
+
+      var clock = new ph.ClockGenerator(update, scene.draw);
+
+      function update(dt) {
+        var x = js_pic.x;
+        js_pic.setPosition(js_pic.x+1*dt/10,0);
+        some_text.text = "FPS: " + Math.round(1000 / clock.averageDt);
+      }
+      
+      clock.start();
+      
+      
+      
+    });
+  </script>
+  
+    <div style="width:800px; height:600px" id="scene"></div>
+  
+  </body>
+</html>

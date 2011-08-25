@@ -1,0 +1,1 @@
+dnotify -r --all coffee/ -e coffee -o . --join pixelhorse -c coffee/*
