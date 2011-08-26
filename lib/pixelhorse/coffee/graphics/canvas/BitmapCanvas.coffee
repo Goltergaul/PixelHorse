@@ -10,4 +10,4 @@ class ph.BitmapCanvas extends ph.Drawable
   draw: (context) ->
     [x, y] = @getAbsolutePosition()
     context.drawImage(@image, x, y, @w, @h)
-    super(context)
+    @drawChildren(context)

@@ -43,6 +43,6 @@ class ph.Drawable
       
     return offsets
   
-  draw: (context) ->
+  drawChildren: (context) ->
     for drawable in @drawables
       drawable.draw(context)

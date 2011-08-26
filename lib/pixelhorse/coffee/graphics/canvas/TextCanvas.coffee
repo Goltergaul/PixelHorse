@@ -6,4 +6,4 @@ class ph.TextCanvas extends ph.Drawable
   draw: (context) ->
     [x, y] = @getAbsolutePosition()
     context.fillText(@text, x, y)
-    super(context)
+    @drawChildren(context)
