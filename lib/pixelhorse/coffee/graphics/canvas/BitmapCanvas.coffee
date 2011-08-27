@@ -2,8 +2,7 @@ class ph.BitmapCanvas extends ph.Drawable
   
   constructor: (@src) ->
     super
-    @image = new Image()
-    @image.src = @src
+    @image = ph.Images.load(@src)
     @w = @image.width
     @h = @image.height
     

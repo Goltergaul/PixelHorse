@@ -21,6 +21,7 @@ prodCoffeeFiles = [
     'graphics/Drawable'
     'graphics/Scene'
     'graphics/Viewport'
+    'graphics/TileMapDrawer'
     'graphics/canvas/BitmapCanvas'
     'graphics/canvas/SpriteCanvas'
     'graphics/canvas/TextCanvas'
@@ -28,7 +29,10 @@ prodCoffeeFiles = [
     'AssetManager'
     'ClockGenerator'
     'Keyboard'
+    'Loadable'
     'TileMap'
+    'Images'
+    'LoadManager'
 ]
 
 
