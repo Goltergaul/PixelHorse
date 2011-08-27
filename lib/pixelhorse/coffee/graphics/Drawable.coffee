@@ -18,7 +18,7 @@ class ph.Drawable
     
   getAbsolutePosition: () ->
     positions = []
-    if @parent
+    if @parent and @parent instanceof ph.Drawable
       positions = [@x + @parent.x, @y + @parent.y]
     else
       positions = [@x, @y]
@@ -38,10 +38,17 @@ class ph.Drawable
         viewportOffset = p.viewport.getOffsets()
         offsets[0] -= viewportOffset[0]
         offsets[1] -= viewportOffset[1]
-      break if p.parent is null
+      break if p not instanceof ph.Drawable
       p = p.parent
       
     return offsets
+    
+  getViewportDimensions: () ->
+    p = this
+    loop 
+      break if p not instanceof ph.Drawable
+      p = p.parent
+    [p.element.width, p.element.height]
   
   drawChildren: (context) ->
     for drawable in @drawables

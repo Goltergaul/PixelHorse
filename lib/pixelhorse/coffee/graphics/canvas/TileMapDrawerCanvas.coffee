@@ -22,4 +22,4 @@ class ph.TileMapDrawerCanvas extends ph.TileMapDrawer
             finally
               sprite.setParent(this)
               @sprites[spritename] = sprite
-      
+     

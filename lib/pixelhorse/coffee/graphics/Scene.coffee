@@ -15,7 +15,7 @@ class ph.Scene
     @gfxContext = @element.getContext("2d")
     
   addDrawable: (drawable) ->
-    drawable.setParent(null)
+    drawable.setParent(this)
     @drawables.push(drawable)
 
   draw: (dt) =>

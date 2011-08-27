@@ -10,3 +10,10 @@ class ph.TileMap
     ph.LoadManager.increaseLoadedCount()
     @loadedCallback(this)
     return null
+    
+  getTileIndexesFromRect: (x, y, w, h) ->
+    row = Math.floor(y*-1 / @frameHeight)
+    col = Math.floor(x*-1 / @frameWidth)
+    endRow = Math.ceil(row + h / @frameHeight + 1)
+    endCol = Math.ceil(col + w / @frameWidth + 1)
+    {startRow: row, startCol: col, endRow: endRow, endCol: endCol}
