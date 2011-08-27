@@ -24,8 +24,8 @@ class ph.Drawable
       positions = [@x, @y]
       
     offsets = @getViewportOffsets()
-    positions[0] += offsets[0]
-    positions[1] += offsets[1]
+    positions[0] += Math.round(offsets[0])
+    positions[1] += Math.round(offsets[1])
     
     return positions
       

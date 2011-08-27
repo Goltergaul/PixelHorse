@@ -2,9 +2,11 @@ class ph.BitmapCanvas extends ph.Drawable
   
   constructor: (@src) ->
     super
-    @image = ph.Images.load(@src)
-    @w = @image.width
-    @h = @image.height
+    self = this
+    @image = ph.Images.load(@src, (image) =>
+      @w = image.width
+      @h = image.height
+    )
     
   draw: (context) ->
     [x, y] = @getAbsolutePosition()

@@ -27,7 +27,7 @@
       delete js_pic3;
 
       try {
-        //js_pic3.setPosition(-30,-10);
+        js_pic3.setPosition(-30,-10);
       }
       catch(e) {
         console.log("js_pic3 is undefined, let's get it from the asset Manager:", e.message);
@@ -62,13 +62,17 @@
       viewport.setOffset(-100,-100)
       js_pic.addViewport(viewport);
       
-      clock.start();
-      
-      
-      
+      loadManager = new ph.LoadManager();
+      loadManager.monitorLoading(function(percent) {
+        return $("#loadingPercent").text(percent);
+      });
+
+      $(document).bind("AssetsLoaded", function() {
+        clock.start();
+      });
     });
   </script>
-  
+    <div id="loadingPercent"></div>
     <div style="width:800px; height:600px" id="scene"></div>
   
   </body>

@@ -18,6 +18,5 @@ class ph.SpriteCanvas extends ph.BitmapCanvas
     framePosition = @getFrameRowAndColFromFrameNumber(@currentFrame)
     sx = (@frameWidth + @frameSpacingX) * framePosition[1] - @frameWidth
     sy = (@frameHeight + @frameSpacingY) * framePosition[0] - @frameHeight
-    console.log("drawing sprite at px #{sx},#{sy} to #{x},#{y} width: #{@frameWidth} height: #{@frameHeight}")
     context.drawImage(@image, sx, sy, @frameWidth, @frameHeight, x, y, @frameWidth, @frameHeight)
     @drawChildren(context)
