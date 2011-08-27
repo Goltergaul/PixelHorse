@@ -29,7 +29,6 @@ prodCoffeeFiles = [
     'AssetManager'
     'ClockGenerator'
     'Keyboard'
-    'Loadable'
     'TileMap'
     'Images'
     'LoadManager'

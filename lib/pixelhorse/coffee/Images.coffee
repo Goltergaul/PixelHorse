@@ -1,9 +1,9 @@
-class ph.Images extends ph.Loadable
+class ph.Images
 
   @load: (@src, callback) ->
     image = new window.Image()
-    ph.Loadable.increaseLoadCount()
+    ph.LoadManager.increaseLoadCount()
     image.onload = () ->
-      ph.Loadable.increaseLoadedCount()
+      ph.LoadManager.increaseLoadedCount()
     image.src = @src
     return image

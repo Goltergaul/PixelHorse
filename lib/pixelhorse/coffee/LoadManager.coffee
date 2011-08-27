@@ -1,7 +1,19 @@
 class ph.LoadManager
+  
+  @objectCount = 0
+  @objectLoadedCount = 0
+  
+  @getLoadingPercent: () ->
+    @objectLoadedCount / @objectCount * 100
+    
+  @increaseLoadCount: () ->
+    @objectCount++
+    
+  @increaseLoadedCount: () ->
+    @objectLoadedCount++;
 
   getOverallPercentLoaded: () ->
-    ph.Loadable.getLoadingPercent()
+    ph.LoadManager.getLoadingPercent()
         
   monitorLoading: (updateCallback = null) =>
     if updateCallback && typeof(updateCallback) is "function"
