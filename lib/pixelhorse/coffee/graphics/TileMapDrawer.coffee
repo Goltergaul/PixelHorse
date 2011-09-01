@@ -6,6 +6,7 @@ class ph.TileMapDrawer extends ph.Drawable
       sprite.setParent(this)
     
   draw: (context) ->
+    super(context)
     indexes = @getVisibleTileIndexes()
     `for(y = indexes.startRow; y < indexes.endRow; y++) {`
     row = @tilemap.tiles[y]

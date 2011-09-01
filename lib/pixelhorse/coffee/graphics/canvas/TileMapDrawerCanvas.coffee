@@ -8,7 +8,7 @@ class ph.TileMapDrawerCanvas extends ph.TileMapDrawer
       for cell in row
         spritenames = [cell.image.sprite]
         
-        # add Background Sprit if one is defined
+        # add Background Sprite if one is defined
         if cell.bgImage
           spritenames.push(cell.bgImage.sprite)
         for spritename in spritenames

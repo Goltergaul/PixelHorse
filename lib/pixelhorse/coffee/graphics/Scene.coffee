@@ -1,24 +1,21 @@
-class ph.Scene
+class ph.Scene extends ph.Drawable
   
   constructor: (parent) ->
-    @drawables = []
+    super
     
     parent = $(parent)
-    @width = parent.width()
-    @height = parent.height()
+    @w = parent.width()
+    @h = parent.height()
     
     @element = document.createElement("canvas")
-    @element.width = @width
-    @element.height = @height
+    @element.width = @w
+    @element.height = @h
     parent.append(@element)
     
     @gfxContext = @element.getContext("2d")
     
-  addDrawable: (drawable) ->
-    drawable.setParent(this)
-    @drawables.push(drawable)
 
-  draw: (dt) =>
+  draw: () =>
     @gfxContext.clearRect(0, 0, @width, @height)
-    for drawable in @drawables
-      drawable.draw(@gfxContext)
+    super(@gfxContext)
+    @drawChildren(@gfxContext)

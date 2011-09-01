@@ -18,6 +18,7 @@ testCoffeeOpts = "--output #{testTargetJsDir}"
 # files must be in right order!
 prodCoffeeFiles = [
     'PixelHorse'
+    'extensions/String'
     'graphics/Drawable'
     'graphics/Scene'
     'graphics/Viewport'
@@ -26,6 +27,7 @@ prodCoffeeFiles = [
     'graphics/canvas/SpriteCanvas'
     'graphics/canvas/TextCanvas'
     'graphics/canvas/TileMapDrawerCanvas'
+    'layout/LinearLayout'
     'AssetManager'
     'ClockGenerator'
     'Keyboard'

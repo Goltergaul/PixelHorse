@@ -14,6 +14,7 @@ class ph.SpriteCanvas extends ph.BitmapCanvas
     @currentFrame = row * framesPerRow + col
     
   draw: (context) ->
+    super(context)
     [x, y] = @getAbsolutePosition()
     framePosition = @getFrameRowAndColFromFrameNumber(@currentFrame)
     sx = (@frameWidth + @frameSpacingX) * framePosition[1] - @frameWidth
