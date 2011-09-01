@@ -3,14 +3,16 @@ fs     = require 'fs'
 util   = require 'util'
 
 prodSrcCoffeeDir     = 'lib/pixelhorse/coffee'
-#testSrcCoffeeDir     = 'lib/pixelhorse/coffee/test'
+testSrcCoffeeDir     = 'lib/pixelhorse/test/spec'
 
 prodTargetJsDir      = 'lib/pixelhorse'
-testTargetJsDir      = 'lib/pixelhorse'
+testTargetJsDir      = 'lib/pixelhorse/test'
 
 prodTargetFileName   = 'pixelhorse'
 prodTargetCoffeeFile = "#{prodSrcCoffeeDir}/#{prodTargetFileName}.coffee"
 prodTargetJsFile     = "#{prodTargetJsDir}/#{prodTargetFileName}.js"
+
+testTargetFileName   = "compiledSpecs"
 
 prodCoffeeOpts = "--output #{prodTargetJsDir} --compile #{prodTargetCoffeeFile}"
 testCoffeeOpts = "--output #{testTargetJsDir}"
@@ -67,6 +69,10 @@ task 'build', 'Build a single JavaScript file from prod files', ->
                 util.log message
                 fs.unlink prodTargetCoffeeFile, (err) -> util.log err if err
                 
+task 'build:test', 'Build individual test specs', ->
+    util.log 'Building test specs'
+    exec "coffee #{testCoffeeOpts} --join #{testTargetFileName}.js #{testSrcCoffeeDir}/*.coffee"
+                
 task 'watch', 'Watch prod source files and build changes', ->
     util.log "Watching for changes in #{prodSrcCoffeeDir}"
 
@@ -76,3 +82,16 @@ task 'watch', 'Watch prod source files and build changes', ->
             if +curr.mtime isnt +prev.mtime
                 util.log "Saw change in #{prodSrcCoffeeDir}/#{file}.coffee"
                 invoke 'build'
+                
+    invoke 'watch:test'
+                
+task 'watch:test', 'Watch test source files and build changes', ->
+  util.log "Watching for changes in #{testSrcCoffeeDir}"
+  
+  fs.readdir testSrcCoffeeDir, (err, files) ->
+    util.log(err) if err
+    for file in files then do (file) -> 
+      fs.watchFile "#{testSrcCoffeeDir}/#{file}", (curr, prev) ->
+        if +curr.mtime isnt +prev.mtime
+          util.log "Saw change in #{testSrcCoffeeDir}/#{file}"
+          invoke 'build:test'
