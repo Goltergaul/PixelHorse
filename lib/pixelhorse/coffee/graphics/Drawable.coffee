@@ -138,8 +138,9 @@ class ph.Drawable
       
     return offsets
     
+  #FIXME This currently does not get a Viewport size, but the scene size
   ###*
-   * Calculates width and height of the containing viewport
+   * Calculates width and height of the containing viewport.
    *
    * @memberOf ph.Drawable#
    * @returns {int[]} Array of width and height
