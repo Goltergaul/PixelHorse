@@ -8,24 +8,26 @@ describe "Drawable", () ->
     expect(d.y).toEqual(0)
     expect(d.w).toEqual(0)
     expect(d.h).toEqual(0)
-    expect(d.wPercent).toBeNull(0)
-    expect(d.hPercent).toBeNull(0)
+    expect(d.wPercent).toBeNull()
+    expect(d.hPercent).toBeNull()
 
   it "should set the parent property if a drawable is added to another", () ->
     d1 = new ph.Drawable()
     d2 = new ph.Drawable()
     
+    spyOn(d1, 'invalidateSize')
     expect(d2.parent).toBeUndefined()
     
     d1.addDrawable(d2)
     
     expect(d2.parent).toEqual(d1)
+    expect(d1.invalidateSize).toHaveBeenCalled()
 
   it "should invalidate size recursively", () ->
     d1 = new ph.Drawable()
     d2 = new ph.Drawable()
     d1.addDrawable(d2)
-    d1.recalculateSize = d2.recalculateSize =false
+    d1.recalculateSize = d2.recalculateSize = false
     spyOn(d2, 'invalidateSize').andCallThrough()
     
     d1.invalidateSize()

@@ -5,9 +5,6 @@
 ###
 class ph.Drawable
   
-  ###*
-   * @constructor
-  ###
   constructor: () ->
     @drawables = []
     @viewport = null
@@ -24,6 +21,7 @@ class ph.Drawable
   addDrawable: (drawable) ->
     drawable.setParent(this)
     @drawables.push(drawable)
+    @invalidateSize()
     
   ###*
    * Adds a viewport to this drawable
@@ -86,16 +84,34 @@ class ph.Drawable
    *
    * @private
    * @memberOf ph.Drawable#
-   * @param {int} [measuredWidth] If present, this is the size left for percent widths
-   * @param {int} [measuredHeight] If present, this is the size left for percent heights
   ###
-  measure: (measuredWidth, measuredHeight) ->
+  measure: () ->
     @recalculateSize = false
+    @absDim = @getAbsoulteDimensionSumOfSiblings()
     if @wPercent
-      @setWidth( Math.round(measuredWidth / 100 * @wPercent) )
+      blah = @parent.getWidth()
+      @w = Math.round((@parent.getWidth() - @absDim.w) / 100 * @wPercent)
     
     if @hPercent
-      @setHeight( Math.round(measuredHeight / 100 * @hPercent) )
+      @h =  Math.round((@parent.getHeight()- @absDim.h) / 100 * @hPercent)
+     
+  ###*
+   * Calculates the absolute width and height of all siblings while 
+   * omitting prozentual scaled siblings
+   *
+   * @memberOf ph.Drawable#
+   * @returns {Object} Object with w and h property
+  ###
+  getAbsoulteDimensionSumOfSiblings: () ->
+    w = h = 0
+    if @parent
+      for drawable in @parent.drawables
+        if not drawable.wPercent
+          w += drawable.getWidth()
+        if not drawable.hPercent
+          h += drawable.getHeight()
+    
+    {w: w, h: h}
       
   ###*
    * Calculates the absolute position on the screen depending on Position and Viewport of this
@@ -105,17 +121,29 @@ class ph.Drawable
    * @returns {int[]} Array of x and y position
   ###
   getAbsolutePosition: () ->
-    positions = []
-    if @parent and @parent instanceof ph.Drawable
-      positions = [@x + @parent.x, @y + @parent.y]
-    else
-      positions = [@x, @y]
+    positions = [0, 0]
+    
+    p = this
+    loop 
+      positions[0] += p.x
+      positions[1] += p.y
+      break if not p.parent
+      p = p.parent
       
     offsets = @getViewportOffsets()
     positions[0] += Math.round(offsets[0])
     positions[1] += Math.round(offsets[1])
     
     return positions
+    
+  ###*
+   * Calculates the relative position from its parent origin
+   *
+   * @memberOf ph.Drawable#
+   * @returns {int[]} Array of x and y position
+  ###
+  getPosition: () ->
+    return [@x, @y]
       
   ###*
    * Calculates the pixel offset depending on the viewport of this
@@ -179,6 +207,8 @@ class ph.Drawable
    * @returns {int} width
   ###
   getWidth: () ->
+    if @recalculateSize
+      @measure()
     @w
    
   ###*
@@ -188,6 +218,8 @@ class ph.Drawable
    * @returns {int} height
   ###
   getHeight: () ->
+    if @recalculateSize
+      @measure()
     @h
     
   ###*
