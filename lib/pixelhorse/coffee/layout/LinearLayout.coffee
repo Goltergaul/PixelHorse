@@ -34,7 +34,13 @@ class ph.LinearLayout extends ph.Drawable
         y += drawable.getHeight()
       else
         x += drawable.getWidth()
-        
+      
+  ###*
+   * Draws the linear Layout
+   *
+   * @memberOf ph.LinearLayout#
+   * @param context A 2D drawing Context
+  ###  
   draw: (context) ->
     super context
     @drawChildren(context)
