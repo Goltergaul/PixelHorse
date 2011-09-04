@@ -99,6 +99,25 @@ describe "LinearLayout", () ->
       
     it "should be possible to mix percent and absolute dimensions", () ->
       d1.setDimensions("100%", 100)
+      d2.setDimensions(100, 20)
+      d3.setDimensions(110, 40)
+      
+      hLayout.setDimensions("100%", "100%")
+      hLayout.addDrawable(d1)
+      vLayout.setDimensions(70, "100%")
+      hLayout.addDrawable(vLayout)
+      vLayout.addDrawable(d2)
+      vLayout.addDrawable(d3)
+      scene.addDrawable(hLayout)
+      scene.draw(gfxContext)
+      
+      expect(d1.getAbsolutePosition()).toEqual([0,0])
+      expect(d1.getWidth()).toEqual(230)
+      expect(d2.getAbsolutePosition()).toEqual([230,0])
+      expect(d3.getAbsolutePosition()).toEqual([230,20])
+      
+    it "should work with nested layouts and percent dimensions", () ->
+      d1.setDimensions("100%", 100)
       d2.setDimensions(100, 100)
       
       hLayout.setDimensions("100%", "100%")
