@@ -1,4 +1,3 @@
-console.log(jasmine.Matchers)
 jasmine.Matchers.prototype.toThrow = (expected) ->
   result = false
   exception = null
