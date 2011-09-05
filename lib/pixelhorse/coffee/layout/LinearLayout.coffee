@@ -5,9 +5,6 @@
  * @param {ph.LinearLayout.VERTICAL|ph.LinearLayout.HORIZONTAL} direction The Layout direction
 ###
 class ph.LinearLayout extends ph.Drawable
-  ###*
-    * @lends ph.Drawable.prototype
-  ###
 
   @VERTICAL = "VERTICAL"
   @HORIZONTAL = "HORIZONTAL"
